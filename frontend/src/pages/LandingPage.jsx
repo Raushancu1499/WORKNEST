@@ -82,24 +82,51 @@ const workflow = [
   }
 ];
 
-const footerColumns = [
-  {
-    title: "Platform",
-    items: ["Home service booking", "Construction labour hiring", "Role-based dashboards"]
-  },
-  {
-    title: "Users",
-    items: ["Customers", "Workers", "Contractors"]
-  },
-  {
-    title: "Operations",
-    items: ["Request tracking", "Job acceptance", "Project staffing"]
+function FooterLink({ to, children }) {
+  if (to.startsWith("#")) {
+    return (
+      <a href={to} className="footer-link">
+        {children}
+      </a>
+    );
   }
-];
+
+  return (
+    <Link to={to} className="footer-link">
+      {children}
+    </Link>
+  );
+}
 
 export default function LandingPage({ user }) {
   const primaryPath = user ? dashboardPathForRole(user.role) : "/register";
   const primaryLabel = user ? "Open dashboard" : "Create account";
+  const footerColumns = [
+    {
+      title: "Platform",
+      items: [
+        { label: "Home service booking", to: "#service-marketplace" },
+        { label: "Construction labour hiring", to: "#how-it-works" },
+        { label: "Role-based dashboards", to: primaryPath }
+      ]
+    },
+    {
+      title: "Users",
+      items: [
+        { label: "Customers", to: "#customers" },
+        { label: "Workers", to: "#workers" },
+        { label: "Contractors", to: "#contractors" }
+      ]
+    },
+    {
+      title: "Operations",
+      items: [
+        { label: "Request tracking", to: "#operations-snapshot" },
+        { label: "Job acceptance", to: "#how-it-works" },
+        { label: "Project staffing", to: "#business-value" }
+      ]
+    }
+  ];
 
   return (
     <div className="page-stack">
@@ -139,7 +166,7 @@ export default function LandingPage({ user }) {
           </div>
         </div>
 
-        <div className="premium-board">
+        <div className="premium-board" id="operations-snapshot">
           <div className="board-header">
             <span className="eyebrow board-eyebrow">Operations Snapshot</span>
             <h2>Designed for the way real service work actually moves.</h2>
@@ -205,7 +232,7 @@ export default function LandingPage({ user }) {
         ))}
       </section>
 
-      <section className="section-band service-band">
+      <section className="section-band service-band" id="service-marketplace">
         <div className="section-copy">
           <span className="eyebrow">Service Marketplace</span>
           <h2>From urgent household repairs to scheduled maintenance, customers can book services with more control.</h2>
@@ -230,7 +257,7 @@ export default function LandingPage({ user }) {
 
       <section className="role-grid premium-role-grid">
         {audiences.map((item) => (
-          <article key={item.label} className="role-card featured-role">
+            <article key={item.label} className="role-card featured-role" id={item.label.toLowerCase()}>
             <span className="eyebrow">{item.label}</span>
             <h2>{item.headline}</h2>
             <p>{item.body}</p>
@@ -238,7 +265,7 @@ export default function LandingPage({ user }) {
         ))}
       </section>
 
-      <section className="section-band split-band dark-band">
+      <section className="section-band split-band dark-band" id="how-it-works">
         <div className="workflow-panel dark-panel">
           <span className="eyebrow dark-eyebrow">How It Works</span>
           <h2>Simple flows for complex real-world coordination.</h2>
@@ -255,7 +282,7 @@ export default function LandingPage({ user }) {
           </div>
         </div>
 
-        <div className="trust-panel dark-support-panel">
+        <div className="trust-panel dark-support-panel" id="business-value">
           <span className="eyebrow dark-eyebrow">Business Value</span>
           <h2>Why this model matters</h2>
           <div className="trust-list">
@@ -313,7 +340,9 @@ export default function LandingPage({ user }) {
             <div key={column.title} className="footer-column">
               <strong>{column.title}</strong>
               {column.items.map((item) => (
-                <span key={item}>{item}</span>
+                <FooterLink key={item.label} to={item.to}>
+                  {item.label}
+                </FooterLink>
               ))}
             </div>
           ))}
