@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: worknest-api
+    name: worknest-api-raushancu1499
     runtime: docker
     rootDir: backend
     dockerfilePath: ./Dockerfile

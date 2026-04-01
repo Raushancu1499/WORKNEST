@@ -1,5 +1,9 @@
+const DEFAULT_DEV_API_BASE_URL = "http://localhost:8081/api";
+const DEFAULT_PROD_API_BASE_URL = "https://worknest-api-raushancu1499.onrender.com/api";
+
 export const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:8081/api";
+  import.meta.env.VITE_API_BASE_URL ||
+  (import.meta.env.PROD ? DEFAULT_PROD_API_BASE_URL : DEFAULT_DEV_API_BASE_URL);
 
 export const ROLES = {
   CUSTOMER: "CUSTOMER",
