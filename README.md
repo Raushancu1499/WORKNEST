@@ -2,6 +2,19 @@
 
 WORKNEST is a full-stack labour and home services marketplace built with React + Vite on the frontend and Spring Boot on the backend.
 
+## Live app
+
+- Frontend: https://worknest-9dpwxqlk7-raushancu1499s-projects.vercel.app
+- Backend: https://worknest-api-raushancu1499.onrender.com
+- Backend health: https://worknest-api-raushancu1499.onrender.com/api/health
+
+## Notes for shared usage
+
+- Anyone with the frontend link can open and use the app from their device in a browser.
+- The deployed backend is currently running with the `render` profile, which uses in-memory H2 storage.
+- Because of that, cloud data may reset after redeploys or service restarts.
+- If you want persistent deployed data, switch the cloud backend to MySQL and provide the production database credentials in Render.
+
 ## Structure
 
 - `frontend/` React application for customers, workers, contractors, and admins
