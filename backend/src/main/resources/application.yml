@@ -1,6 +1,8 @@
 spring:
   application:
     name: worknest
+  config:
+    import: optional:file:./.env[.properties]
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:h2:file:./data/worknestdb;MODE=MySQL;AUTO_SERVER=TRUE}
     driver-class-name: ${SPRING_DATASOURCE_DRIVER:org.h2.Driver}
@@ -43,8 +45,8 @@ spring:
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/worknest?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC}
     driver-class-name: ${SPRING_DATASOURCE_DRIVER:com.mysql.cj.jdbc.Driver}
-    username: ${SPRING_DATASOURCE_USERNAME:root}
-    password: ${SPRING_DATASOURCE_PASSWORD:root}
+    username: ${MYSQL_USERNAME:root}
+    password: ${MYSQL_PASSWORD:}
 
 ---
 spring:

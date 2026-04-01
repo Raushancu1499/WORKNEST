@@ -1,71 +1,115 @@
 import { Link } from "react-router-dom";
 import { dashboardPathForRole } from "../lib/utils";
 
-const platformHighlights = [
+const services = [
   {
-    title: "Trusted Home Services",
-    summary:
-      "Book plumbing, electrical, carpentry, painting, interior, and cleaning support from one organized platform."
+    title: "Plumbing",
+    body: "Book leak repairs, pipeline maintenance, fittings, and urgent household fixes."
   },
   {
-    title: "Construction Workforce Planning",
-    summary:
-      "Contractors can post labour demand in advance, track staffing progress, and reduce last-minute hiring delays."
+    title: "Electrical",
+    body: "Find electricians for wiring, installation, maintenance, and breakdown support."
   },
   {
-    title: "Role-Based Operations",
-    summary:
-      "Customers, workers, contractors, and admins all get focused workspaces built around their daily tasks."
+    title: "Carpentry",
+    body: "Handle furniture work, fittings, wood repairs, and finishing jobs with clarity."
+  },
+  {
+    title: "Painting",
+    body: "Organize interior and exterior painting work with date, location, and scope control."
+  },
+  {
+    title: "Interior Services",
+    body: "Coordinate fit-out, detailing, and finishing support for home improvement projects."
+  },
+  {
+    title: "Cleaning",
+    body: "Book recurring or one-time cleaning work through a trackable request workflow."
   }
 ];
 
-const serviceCategories = [
-  "Plumbing",
-  "Electrical",
-  "Carpentry",
-  "Painting",
-  "Interior Services",
-  "Cleaning"
-];
-
-const workflowSteps = [
+const pillars = [
   {
-    title: "Customers raise requests",
-    body:
-      "Choose a service, set the preferred date and location, and track the request from pending to completion."
+    title: "Structured operations",
+    body: "Every booking and labour requirement moves through a defined workflow instead of phone-call chaos."
   },
   {
-    title: "Workers accept matching jobs",
-    body:
-      "Workers maintain their skills and location preferences so they see relevant opportunities first."
+    title: "Better job access",
+    body: "Workers can discover relevant opportunities based on skills, location, and day-to-day availability."
   },
   {
-    title: "Contractors fill labour demand",
-    body:
-      "Construction jobs can be posted with daily wage, worker count, and schedule for better project planning."
+    title: "Faster project planning",
+    body: "Contractors can staff work in advance, monitor fill rates, and reduce last-minute labour gaps."
   }
 ];
 
-const trustPoints = [
-  "Structured booking and hiring workflows",
-  "Clear status visibility for every job",
-  "Professional worker profiles and role dashboards",
-  "Built for both home services and construction staffing"
+const audiences = [
+  {
+    label: "Customers",
+    headline: "Book home services with confidence",
+    body:
+      "Raise service requests, select preferred dates, and track progress from pending to completed without manual coordination."
+  },
+  {
+    label: "Workers",
+    headline: "Turn skills into steady work",
+    body:
+      "Maintain a professional profile, accept relevant jobs, and manage active assignments from one role-focused dashboard."
+  },
+  {
+    label: "Contractors",
+    headline: "Plan labour before site work begins",
+    body:
+      "Publish workforce demand with wages, dates, and worker counts to keep projects staffed and schedules visible."
+  }
+];
+
+const workflow = [
+  {
+    title: "Raise a request or labour requirement",
+    body:
+      "Customers book services and contractors post workforce needs with the date, location, and job details already defined."
+  },
+  {
+    title: "Match the right people faster",
+    body:
+      "Workers view opportunities aligned to their service category and preferred work area instead of searching blindly."
+  },
+  {
+    title: "Track progress in one place",
+    body:
+      "Jobs move through status-based workflows so everyone can see what is pending, accepted, and completed."
+  }
+];
+
+const footerColumns = [
+  {
+    title: "Platform",
+    items: ["Home service booking", "Construction labour hiring", "Role-based dashboards"]
+  },
+  {
+    title: "Users",
+    items: ["Customers", "Workers", "Contractors"]
+  },
+  {
+    title: "Operations",
+    items: ["Request tracking", "Job acceptance", "Project staffing"]
+  }
 ];
 
 export default function LandingPage({ user }) {
   const primaryPath = user ? dashboardPathForRole(user.role) : "/register";
-  const primaryLabel = user ? "Open dashboard" : "Get started";
+  const primaryLabel = user ? "Open dashboard" : "Create account";
 
   return (
     <div className="page-stack">
-      <section className="hero-panel company-hero">
+      <section className="hero-panel premium-hero">
         <div className="hero-copy">
-          <span className="eyebrow">Smart Labour + Home Services Platform</span>
-          <h1>Hire verified service professionals and organize construction labour from one workspace.</h1>
+          <span className="eyebrow">Smart Labour + Home Services Marketplace</span>
+          <h1>One platform for home service booking, skilled labour discovery, and construction workforce planning.</h1>
           <p>
-            WORKNEST brings homeowners, skilled workers, and contractors together in a single digital marketplace
-            built for faster booking, structured job tracking, and better workforce coordination.
+            WORKNEST helps homeowners, service professionals, and contractors move from scattered phone-based
+            coordination to a cleaner digital workflow with bookings, job acceptance, and project staffing in one place.
           </p>
 
           <div className="hero-actions">
@@ -81,93 +125,125 @@ export default function LandingPage({ user }) {
 
           <div className="hero-stat-row">
             <article className="stat-block">
-              <strong>Home Services</strong>
-              <span>Request, assign, and complete household jobs with clean workflow visibility.</span>
+              <strong>Homeowners</strong>
+              <span>Book trusted household services with date, location, and job tracking built in.</span>
             </article>
             <article className="stat-block">
-              <strong>Construction Hiring</strong>
-              <span>Post labour requirements early and staff projects with the right crew.</span>
+              <strong>Workers</strong>
+              <span>Discover nearby jobs that match skills, category, and working area.</span>
+            </article>
+            <article className="stat-block">
+              <strong>Contractors</strong>
+              <span>Post labour demand in advance and watch crew allocation progress clearly.</span>
             </article>
           </div>
         </div>
 
-        <div className="hero-side">
-          <div className="showcase-card">
-            <span className="eyebrow">Why WORKNEST</span>
-            <h2>Built for real service operations, not just listings.</h2>
-            <p>
-              Every request moves through a trackable status flow so customers, workers, and contractors stay aligned
-              from booking to completion.
-            </p>
+        <div className="premium-board">
+          <div className="board-header">
+            <span className="eyebrow board-eyebrow">Operations Snapshot</span>
+            <h2>Designed for the way real service work actually moves.</h2>
           </div>
 
-          <div className="mini-metrics">
-            {platformHighlights.map((item) => (
-              <article key={item.title}>
-                <strong>{item.title}</strong>
-                <span>{item.summary}</span>
-              </article>
-            ))}
+          <div className="board-columns">
+            <article className="board-column">
+              <span className="board-label">Pending</span>
+              <div className="board-ticket">
+                <strong>Kitchen sink repair</strong>
+                <p>Banashankari - Plumbing</p>
+              </div>
+              <div className="board-ticket">
+                <strong>Wall painting crew</strong>
+                <p>Whitefield - 3 workers needed</p>
+              </div>
+            </article>
+
+            <article className="board-column">
+              <span className="board-label">Accepted</span>
+              <div className="board-ticket">
+                <strong>Electrical fitting</strong>
+                <p>Indiranagar - Assigned worker</p>
+              </div>
+              <div className="board-ticket">
+                <strong>Masonry support</strong>
+                <p>Yelahanka - Crew partially filled</p>
+              </div>
+            </article>
+
+            <article className="board-column">
+              <span className="board-label">Completed</span>
+              <div className="board-ticket">
+                <strong>Deep cleaning visit</strong>
+                <p>Jayanagar - Closed successfully</p>
+              </div>
+              <div className="board-ticket">
+                <strong>Carpentry finishing</strong>
+                <p>HSR Layout - Delivered on schedule</p>
+              </div>
+            </article>
+          </div>
+
+          <div className="board-summary">
+            <div>
+              <strong>Clear workflows</strong>
+              <span>Track status instead of chasing updates manually.</span>
+            </div>
+            <div>
+              <strong>One operational layer</strong>
+              <span>Home services and labour hiring, under one product.</span>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="section-band">
+      <section className="signal-strip">
+        {pillars.map((item) => (
+          <article key={item.title} className="signal-card">
+            <strong>{item.title}</strong>
+            <p>{item.body}</p>
+          </article>
+        ))}
+      </section>
+
+      <section className="section-band service-band">
         <div className="section-copy">
-          <span className="eyebrow">Service Coverage</span>
-          <h2>From emergency repairs to planned labour hiring, WORKNEST covers both immediate needs and project staffing.</h2>
+          <span className="eyebrow">Service Marketplace</span>
+          <h2>From urgent household repairs to scheduled maintenance, customers can book services with more control.</h2>
           <p>
-            The platform is designed for everyday household service requests as well as advance labour planning for
-            construction work. That makes it useful to homeowners, independent workers, and site supervisors in the
-            same ecosystem.
+            WORKNEST covers the service categories people search for most often, while giving workers and contractors
+            the structure needed to manage requests, assignments, and job history professionally.
           </p>
         </div>
 
-        <div className="service-grid">
-          {serviceCategories.map((service) => (
-            <article key={service} className="service-tile">
+        <div className="service-grid premium-service-grid">
+          {services.map((service) => (
+            <article key={service.title} className="service-tile">
               <span className="service-dot" />
-              <strong>{service}</strong>
+              <div>
+                <strong>{service.title}</strong>
+                <p>{service.body}</p>
+              </div>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="role-grid">
-        <article className="role-card featured-role">
-          <span className="eyebrow">For Customers</span>
-          <h2>Book home services with clarity.</h2>
-          <p>
-            Customers can raise requests, select dates and locations, monitor job status, and manage completed work
-            without relying on manual calling and follow-up.
-          </p>
-        </article>
-
-        <article className="role-card featured-role">
-          <span className="eyebrow">For Workers</span>
-          <h2>Find work that matches your skills.</h2>
-          <p>
-            Skilled professionals and labour workers can maintain profiles, accept relevant opportunities, and view
-            upcoming assignments in one place.
-          </p>
-        </article>
-
-        <article className="role-card featured-role">
-          <span className="eyebrow">For Contractors</span>
-          <h2>Plan crews before the work starts.</h2>
-          <p>
-            Contractors can publish labour requirements with wage, dates, and worker count to reduce project delays
-            and improve workforce visibility.
-          </p>
-        </article>
+      <section className="role-grid premium-role-grid">
+        {audiences.map((item) => (
+          <article key={item.label} className="role-card featured-role">
+            <span className="eyebrow">{item.label}</span>
+            <h2>{item.headline}</h2>
+            <p>{item.body}</p>
+          </article>
+        ))}
       </section>
 
-      <section className="section-band split-band">
-        <div className="workflow-panel">
-          <span className="eyebrow">How It Works</span>
-          <h2>A structured flow for every participant.</h2>
+      <section className="section-band split-band dark-band">
+        <div className="workflow-panel dark-panel">
+          <span className="eyebrow dark-eyebrow">How It Works</span>
+          <h2>Simple flows for complex real-world coordination.</h2>
           <div className="workflow-list">
-            {workflowSteps.map((step, index) => (
+            {workflow.map((step, index) => (
               <article key={step.title} className="workflow-item">
                 <div className="workflow-index">0{index + 1}</div>
                 <div>
@@ -179,28 +255,37 @@ export default function LandingPage({ user }) {
           </div>
         </div>
 
-        <div className="trust-panel">
-          <span className="eyebrow">Operational Benefits</span>
-          <h2>Designed to reduce manual coordination.</h2>
+        <div className="trust-panel dark-support-panel">
+          <span className="eyebrow dark-eyebrow">Business Value</span>
+          <h2>Why this model matters</h2>
           <div className="trust-list">
-            {trustPoints.map((point) => (
-              <div key={point} className="trust-item">
-                <span className="trust-check">•</span>
-                <p>{point}</p>
-              </div>
-            ))}
+            <div className="trust-item">
+              <span className="trust-check" />
+              <p>Reduces manual back-and-forth between customers, workers, and contractors.</p>
+            </div>
+            <div className="trust-item">
+              <span className="trust-check" />
+              <p>Improves job access for workers through better discovery and structured status visibility.</p>
+            </div>
+            <div className="trust-item">
+              <span className="trust-check" />
+              <p>Supports project planning with advance labour hiring instead of same-day crew searching.</p>
+            </div>
+            <div className="trust-item">
+              <span className="trust-check" />
+              <p>Creates a more professional digital layer for service coordination and construction staffing.</p>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="cta-strip">
+      <section className="cta-strip premium-cta">
         <div>
-          <span className="eyebrow">Start with WORKNEST</span>
-          <h2>Move from phone-based coordination to a cleaner digital workflow.</h2>
-          <p>
-            Create an account to explore role-based dashboards for customers, workers, and contractors.
-          </p>
+          <span className="eyebrow">Start With WORKNEST</span>
+          <h2>Bring bookings, labour hiring, and job tracking into one operational system.</h2>
+          <p>Create an account to explore the marketplace as a customer, worker, or contractor.</p>
         </div>
+
         <div className="hero-actions">
           <Link to={primaryPath} className="primary-button">
             {primaryLabel}
@@ -212,6 +297,28 @@ export default function LandingPage({ user }) {
           ) : null}
         </div>
       </section>
+
+      <footer className="site-footer">
+        <div className="footer-brand">
+          <span className="eyebrow">WORKNEST</span>
+          <h2>Digital coordination for labour hiring and home services.</h2>
+          <p>
+            Built to simplify service booking, improve worker access to jobs, and help contractors manage labour demand
+            with more visibility.
+          </p>
+        </div>
+
+        <div className="footer-columns">
+          {footerColumns.map((column) => (
+            <div key={column.title} className="footer-column">
+              <strong>{column.title}</strong>
+              {column.items.map((item) => (
+                <span key={item}>{item}</span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </footer>
     </div>
   );
 }

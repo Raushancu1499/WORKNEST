@@ -7,6 +7,8 @@ frontend/dist/
 .vscode/
 *.log
 .env
+.env.*
+backend/.env
 .env.local
 .env.production
 run-logs/
