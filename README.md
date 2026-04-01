@@ -12,8 +12,8 @@ WORKNEST is a full-stack labour and home services marketplace built with React +
 
 - Anyone with the frontend link can open and use the app from their device in a browser.
 - The live backend currently works online for public testing.
-- The repository is now prepared for persistent MySQL on Render using a private MySQL service plus the Spring `mysql` profile.
-- Until you apply that updated Render Blueprint, deployed data can still reset after restarts or redeploys.
+- The deployed backend currently runs on Render's free plan with the `render` profile.
+- Because of that, cloud data may reset after restarts or redeploys.
 
 ## Structure
 
@@ -70,39 +70,20 @@ Official Vercel references:
 
 The backend is configured for Render with `render.yaml` and `backend/Dockerfile`.
 
-The updated Blueprint now provisions:
+The current free Blueprint keeps the backend on the `render` profile, which uses in-memory H2 so the service can stay on Render's free plan without a paid database.
 
-- `worknest-api-raushancu1499` as the public Spring Boot API
-- `worknest-mysql-raushancu1499` as a private MySQL 8.4 service with a persistent disk
+Recommended environment variables in Render:
 
-What Render will do from `render.yaml`:
+- `SPRING_PROFILES_ACTIVE=render`
+- `APP_CORS_ALLOWED_ORIGINS=https://<your-vercel-domain>`
+- `APP_JWT_SECRET=<long-random-secret>`
 
-- switch the backend to `SPRING_PROFILES_ACTIVE=mysql`
-- generate the MySQL passwords automatically
-- pass the MySQL host, username, password, and database name from the private service into the backend
-
-Important Render note:
-
-- Private services cannot use the free plan, and persistent disks are only available on paid services.
-- Because of that, the MySQL service in `render.yaml` uses `plan: starter`.
-- Your backend web service can stay on the free plan if you want.
-
-To finish persistent MySQL in Render:
-
-1. Push the latest repo changes to GitHub.
-2. Open the existing Render Blueprint or service setup for this repo.
-3. Sync/apply the updated `render.yaml`.
-4. Approve creation of the new private MySQL service on the `starter` plan.
-5. Wait for the MySQL service and API service to redeploy.
-
-After that, new deployed data will persist on the MySQL disk instead of resetting with the temporary H2 setup.
+If you later want persistent production data, you can switch the backend to the `mysql` profile and connect it to a paid MySQL service or another external MySQL provider.
 
 Official Render references:
 
 - [Deploying on Render](https://render.com/docs/deploys)
 - [Blueprint YAML Reference](https://render.com/docs/blueprint-spec)
-- [Deploy MySQL on Render](https://render.com/docs/deploy-mysql)
-- [Persistent Disks](https://render.com/docs/disks)
 
 ## GitHub
 
