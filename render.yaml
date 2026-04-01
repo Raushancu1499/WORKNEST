@@ -1,4 +1,23 @@
 services:
+  - type: pserv
+    name: worknest-mysql-raushancu1499
+    runtime: image
+    plan: starter
+    image:
+      url: docker.io/mysql:8.4
+    disk:
+      name: mysql-data
+      mountPath: /var/lib/mysql
+      sizeGB: 10
+    envVars:
+      - key: MYSQL_DATABASE
+        value: worknest
+      - key: MYSQL_USER
+        value: worknest
+      - key: MYSQL_PASSWORD
+        generateValue: true
+      - key: MYSQL_ROOT_PASSWORD
+        generateValue: true
   - type: web
     name: worknest-api-raushancu1499
     runtime: docker
@@ -10,7 +29,27 @@ services:
     healthCheckPath: /api/health
     envVars:
       - key: SPRING_PROFILES_ACTIVE
-        value: render
+        value: mysql
+      - key: MYSQL_HOSTPORT
+        fromService:
+          name: worknest-mysql-raushancu1499
+          type: pserv
+          property: hostport
+      - key: MYSQL_DATABASE
+        fromService:
+          name: worknest-mysql-raushancu1499
+          type: pserv
+          envVarKey: MYSQL_DATABASE
+      - key: MYSQL_USERNAME
+        fromService:
+          name: worknest-mysql-raushancu1499
+          type: pserv
+          envVarKey: MYSQL_USER
+      - key: MYSQL_PASSWORD
+        fromService:
+          name: worknest-mysql-raushancu1499
+          type: pserv
+          envVarKey: MYSQL_PASSWORD
       - key: APP_CORS_ALLOWED_ORIGINS
         value: https://*.vercel.app
       - key: APP_JWT_SECRET

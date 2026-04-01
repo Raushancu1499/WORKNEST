@@ -11,9 +11,9 @@ WORKNEST is a full-stack labour and home services marketplace built with React +
 ## Notes for shared usage
 
 - Anyone with the frontend link can open and use the app from their device in a browser.
-- The deployed backend is currently running with the `render` profile, which uses in-memory H2 storage.
-- Because of that, cloud data may reset after redeploys or service restarts.
-- If you want persistent deployed data, switch the cloud backend to MySQL and provide the production database credentials in Render.
+- The live backend currently works online for public testing.
+- The repository is now prepared for persistent MySQL on Render using a private MySQL service plus the Spring `mysql` profile.
+- Until you apply that updated Render Blueprint, deployed data can still reset after restarts or redeploys.
 
 ## Structure
 
@@ -33,8 +33,9 @@ Default local profile:
 MySQL local profile:
 
 - activate with `SPRING_PROFILES_ACTIVE=mysql`
-- defaults to `root` / `root` on `localhost:3306`
+- defaults to `root` on `localhost:3306`
 - creates the `worknest` schema if it does not already exist
+- can also read `MYSQL_HOSTPORT` and `MYSQL_DATABASE` when you want to point the backend at another MySQL server
 
 The backend reads environment variables from `backend/.env.example`.
 
@@ -69,18 +70,39 @@ Official Vercel references:
 
 The backend is configured for Render with `render.yaml` and `backend/Dockerfile`.
 
-Recommended initial environment variables in Render:
+The updated Blueprint now provisions:
 
-- `SPRING_PROFILES_ACTIVE=render`
-- `APP_CORS_ALLOWED_ORIGINS=https://<your-vercel-domain>`
-- `APP_JWT_SECRET=<long-random-secret>`
+- `worknest-api-raushancu1499` as the public Spring Boot API
+- `worknest-mysql-raushancu1499` as a private MySQL 8.4 service with a persistent disk
 
-The `render` profile uses H2 in-memory storage so the backend can deploy without an external database. If you want persistent production data, switch to the `mysql` profile and provide managed database credentials through the standard Spring datasource environment variables.
+What Render will do from `render.yaml`:
+
+- switch the backend to `SPRING_PROFILES_ACTIVE=mysql`
+- generate the MySQL passwords automatically
+- pass the MySQL host, username, password, and database name from the private service into the backend
+
+Important Render note:
+
+- Private services cannot use the free plan, and persistent disks are only available on paid services.
+- Because of that, the MySQL service in `render.yaml` uses `plan: starter`.
+- Your backend web service can stay on the free plan if you want.
+
+To finish persistent MySQL in Render:
+
+1. Push the latest repo changes to GitHub.
+2. Open the existing Render Blueprint or service setup for this repo.
+3. Sync/apply the updated `render.yaml`.
+4. Approve creation of the new private MySQL service on the `starter` plan.
+5. Wait for the MySQL service and API service to redeploy.
+
+After that, new deployed data will persist on the MySQL disk instead of resetting with the temporary H2 setup.
 
 Official Render references:
 
 - [Deploying on Render](https://render.com/docs/deploys)
 - [Blueprint YAML Reference](https://render.com/docs/blueprint-spec)
+- [Deploy MySQL on Render](https://render.com/docs/deploy-mysql)
+- [Persistent Disks](https://render.com/docs/disks)
 
 ## GitHub
 

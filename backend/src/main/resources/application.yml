@@ -43,7 +43,7 @@ spring:
     activate:
       on-profile: mysql
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/worknest?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://${MYSQL_HOSTPORT:localhost:3306}/${MYSQL_DATABASE:worknest}?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC}
     driver-class-name: ${SPRING_DATASOURCE_DRIVER:com.mysql.cj.jdbc.Driver}
     username: ${MYSQL_USERNAME:root}
     password: ${MYSQL_PASSWORD:}
